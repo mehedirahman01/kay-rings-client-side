@@ -12,7 +12,7 @@ const PlaceOrder = () => {
     const history = useHistory()
 
     useEffect(() => {
-        fetch(`http://localhost:5000/placeOrder/${_id}`)
+        fetch(`https://frozen-chamber-03076.herokuapp.com/placeOrder/${_id}`)
             .then(res => res.json())
             .then(data => setSingleRing(data))
             .catch(error => console.log(error))
@@ -29,7 +29,7 @@ const PlaceOrder = () => {
         formData.ringId = _id
         formData.status = "pending"
 
-        fetch("http://localhost:5000/placeOrder", {
+        fetch("https://frozen-chamber-03076.herokuapp.com/placeOrder", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',

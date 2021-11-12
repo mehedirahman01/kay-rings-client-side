@@ -10,7 +10,7 @@ const CustomerOrders = () => {
 
     // Get Orders
     useEffect(() => {
-        fetch('http://localhost:5000/myOrders', {
+        fetch('https://frozen-chamber-03076.herokuapp.com/myOrders', {
             method: "POST",
             headers: {
                 'content-type': "application/json"
@@ -29,7 +29,7 @@ const CustomerOrders = () => {
     const handleCancelOrder = id => {
         var confirm = window.confirm("Are you sure you want to Cancel Order?")
         if (confirm) {
-            fetch(`http://localhost:5000/placeOrder/${id}`, {
+            fetch(`https://frozen-chamber-03076.herokuapp.com/${id}`, {
                 method: "DELETE"
             })
                 .then(res => res.json())

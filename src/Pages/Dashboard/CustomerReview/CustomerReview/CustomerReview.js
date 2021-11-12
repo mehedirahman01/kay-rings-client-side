@@ -12,7 +12,7 @@ const CustomerReview = () => {
         formData.name = user.displayName
         formData.email = user.email
 
-        fetch("http://localhost:5000/review", {
+        fetch("https://frozen-chamber-03076.herokuapp.com/review", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',

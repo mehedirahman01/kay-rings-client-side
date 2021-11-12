@@ -8,7 +8,7 @@ const CustomerOrdersTable = (props) => {
 
     // Load Data By ID
     useEffect(() => {
-        fetch(`http://localhost:5000/placeOrder/${ringId}`)
+        fetch(`https://frozen-chamber-03076.herokuapp.com/placeOrder/${ringId}`)
             .then(res => res.json())
             .then(data => setSelectedRing(data))
             .catch(error => console.log(error))

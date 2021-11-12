@@ -9,7 +9,7 @@ const HomeCollection = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:5000/ringCollection")
+        fetch("https://frozen-chamber-03076.herokuapp.com/ringCollection")
             .then(res => res.json())
             .then(data => {
                 setRingCollection(data)
