@@ -16,7 +16,7 @@ const HomeCollection = () => {
                 setDataLoaded(true)
             })
             .catch(error => console.log(error))
-    })
+    }, [])
     return (
         <div className="container my-5">
             <h1>Our Collection</h1>

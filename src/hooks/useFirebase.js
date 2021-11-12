@@ -47,7 +47,7 @@ const useFirebase = () => {
                 setAuthError(error.message)
             })
             .finally(() => {
-                setIsLoading(true)
+                setIsLoading(false)
             })
     }
 

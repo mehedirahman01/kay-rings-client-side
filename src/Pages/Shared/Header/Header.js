@@ -39,9 +39,7 @@ const Header = () => {
                                 </button>
                                 {
                                     user?.email ? <ul className="dropdown-menu p-0">
-                                        <li> <NavLink className="nav-link" to="/myOrders"><h6 className="text-black m-0">My Orders</h6></NavLink></li>
-                                        <li><NavLink className="nav-link" to="/addItem"><h6 className="text-black m-0"> Add New Item</h6></NavLink></li>
-                                        <li><NavLink className="nav-link" to="/allOrders"><h6 className="text-black m-0"> All Orders</h6></NavLink></li>
+                                        <li> <NavLink className="nav-link" to="/dashboard"><h6 className="text-black m-0">Dashboard</h6></NavLink></li>
                                         <li><NavLink className="nav-link" to="/" onClick={logout} ><h6 className="text-black m-0">Logout</h6></NavLink></li>
 
                                     </ul> : <ul className="dropdown-menu p-0">

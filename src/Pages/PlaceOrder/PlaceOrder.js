@@ -18,6 +18,33 @@ const PlaceOrder = () => {
             .catch(error => console.log(error))
     }, [])
 
+
+    const onSubmit = formData => {
+        if (!formData.name) {
+            formData.name = user.displayName
+        }
+        if (!formData.email) {
+            formData.email = user.email
+        }
+        formData.ringId = _id
+        formData.status = "pending"
+
+        fetch("http://localhost:5000/placeOrder", {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(res => res.json())
+            .then(result => {
+                alert("Order Placed Succesfully. Please wait for our call")
+                reset()
+                history.push("/home")
+            })
+
+    }
+
     return (
         <div className="container my-5">
             <h1>Place Your Order</h1>
@@ -27,7 +54,7 @@ const PlaceOrder = () => {
 
                     <h6 className="pt-4">Contact Information</h6>
                     {/* User Details Form */}
-                    <form className="p-4">
+                    {user ? <form className="p-4" onSubmit={handleSubmit(onSubmit)}>
 
                         <div className="mb-3">
                             <label>First Name</label>
@@ -60,13 +87,17 @@ const PlaceOrder = () => {
                         </div>
 
                         <input className="btn btn-dark btn-outline-light border border-0" type="submit" value="Place Order" />
-                    </form>
+                    </form> : <div className="me-auto">
+                        <div className="spinner-border" style={{ width: "10rem", height: "10rem" }} role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>}
+
                 </div>
 
                 {/* Package Details */}
                 <div className="col-lg-6 col-12 border rounded p-0 order-lg-last order-first mb-lg-0 pb-3">
-
-                    <div>
+                    {singleRing ? <div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <div className="row">
@@ -98,8 +129,13 @@ const PlaceOrder = () => {
                         </ul>
 
                     </div>
-                </div>
+                        : <div className="me-auto">
+                            <div className="spinner-border" style={{ width: "10rem", height: "10rem" }} role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        </div>}
 
+                </div>
             </div>
         </div>
     );

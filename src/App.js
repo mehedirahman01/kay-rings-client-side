@@ -9,6 +9,8 @@ import Footer from './Pages/Shared/Footer/Footer';
 import Collection from './Pages/Collection/Collection/Collection';
 import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 import PlaceOrder from './Pages/PlaceOrder/PlaceOrder';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import Payment from './Pages/Dashboard/Payment/Payment';
 
 function App() {
   return (
@@ -17,22 +19,24 @@ function App() {
         <Router>
           <Header></Header>
           <Switch>
-            <Route exact path="/home">
+            <Route path="/home">
               <Home></Home>
             </Route>
-            <Route exact path="/login">
+            <Route path="/login">
               <Login></Login>
             </Route>
-            <Route exact path="/register">
+            <Route path="/register">
               <Register></Register>
             </Route>
-            <Route exact path="/collection">
+            <Route path="/collection">
               <Collection></Collection>
             </Route>
-            <PrivateRoute exact path="/placeOrder/:_id">
+            <PrivateRoute path="/placeOrder/:_id">
               <PlaceOrder></PlaceOrder>
             </PrivateRoute>
-
+            <PrivateRoute path="/dashboard">
+              <Dashboard></Dashboard>
+            </PrivateRoute>
             <Route exact path="/">
               <Home></Home>
             </Route>
