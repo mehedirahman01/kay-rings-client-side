@@ -9,14 +9,17 @@ const useFirebase = () => {
     const [user, setUser] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [authError, setAuthError] = useState('')
-
+    const [admin, setAdmin] = useState(false)
     const auth = getAuth()
 
+    // Registration
     const registerUser = (email, password, name, history) => {
+        setIsLoading(true)
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const newUser = { email, displayName: name }
                 setUser(newUser)
+                saveUser(email, name)
                 setAuthError('')
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -24,23 +27,34 @@ const useFirebase = () => {
                 }).catch((error) => {
                 })
                 history.replace('/')
-                console.log(user)
             })
             .catch((error) => {
                 setAuthError(error.message)
-                console.log(authError);
+
             })
             .finally(() => {
                 setIsLoading(false)
             })
     }
 
+    // Login
     const loginUser = (email, password, location, history) => {
         setIsLoading(true)
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const destination = location?.state?.from || '/'
-                history.replace(destination)
+                fetch(`https://frozen-chamber-03076.herokuapp.com/users/${userCredential?.user?.email}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        setAdmin(data.admin)
+                        if (data.admin) {
+                            const destination = '/dashboard'
+                            history.replace(destination)
+                        } else {
+                            const destination = location?.state?.from || '/'
+                            history.replace(destination)
+                        }
+                    })
+
                 setAuthError('')
             })
             .catch((error) => {
@@ -51,6 +65,7 @@ const useFirebase = () => {
             })
     }
 
+    // Logout 
     const logout = () => {
         setIsLoading(true)
         signOut(auth).then(() => {
@@ -58,6 +73,19 @@ const useFirebase = () => {
         }).finally(() => {
             setIsLoading(false)
         })
+    }
+
+    // Save user in Database
+    const saveUser = (email, displayName) => {
+        const user = { email, displayName }
+        fetch('https://frozen-chamber-03076.herokuapp.com/users', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
     }
 
     useEffect(() => {
@@ -72,8 +100,18 @@ const useFirebase = () => {
         return () => unsubscribed
     }, [])
 
+
+    useEffect(() => {
+        fetch(`https://frozen-chamber-03076.herokuapp.com/users/${user.email}`)
+            .then(res => res.json())
+            .then(data => {
+                setAdmin(data.admin)
+            })
+    }, [user?.email])
+
     return {
         user,
+        admin,
         authError,
         isLoading,
         registerUser,

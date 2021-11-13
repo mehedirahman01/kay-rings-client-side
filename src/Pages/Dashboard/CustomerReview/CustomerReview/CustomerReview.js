@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import useAuth from '../../../../hooks/useAuth';
 
-
 const CustomerReview = () => {
     const { register, errors, handleSubmit, reset } = useForm();
     const { user } = useAuth()
     const history = useHistory()
+
+    // Handle Review Form Data
     const onSubmit = (formData) => {
         formData.name = user.displayName
         formData.email = user.email
@@ -26,12 +27,11 @@ const CustomerReview = () => {
                 history.push("/dashboard")
             })
     };
-    console.log(errors);
 
 
     return (
         <div>
-
+            {/* Review Form */}
             <form className="p-4" onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
                     <label>Rating</label>

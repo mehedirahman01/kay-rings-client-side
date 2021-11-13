@@ -3,21 +3,22 @@ import { NavLink, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const Register = () => {
-    const [loginData, setLoginData] = useState({});
-    const { user, registerUser, isLoading, authError } = useAuth();
+    const [registrationData, setRegistrationData] = useState({});
+    const { registerUser, authError, isLoading } = useAuth();
     const history = useHistory()
 
+    // Handle Input OnBlur
     const handleOnBlur = e => {
         const field = e.target.name
         const value = e.target.value
-        const newLoginData = { ...loginData }
-        newLoginData[field] = value
-        setLoginData(newLoginData)
-        console.log(newLoginData)
+        const newRegistrationData = { ...registrationData }
+        newRegistrationData[field] = value
+        setRegistrationData(newRegistrationData)
     }
 
+    // Handle Registration 
     const handleRegistration = e => {
-        registerUser(loginData.email, loginData.password, loginData.name, history)
+        registerUser(registrationData.email, registrationData.password, registrationData.name, history)
         e.preventDefault()
     }
 
@@ -37,6 +38,11 @@ const Register = () => {
                             <div className="form-group">
                                 <input onBlur={handleOnBlur} type="password" name="password" className="form-control mt-2" placeholder="Password" />
                             </div>
+                            {isLoading && <div className="me-auto">
+                                <div className="spinner-border" style={{ width: "2.5rem", height: "2.5rem" }} role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            </div>}
                             {authError && <p className="pt-2 text-danger">An Error Occured! Please provide valid input</p>}
                             <div className="form-group">
                                 <button className="btn btn-success mt-2">Register</button>

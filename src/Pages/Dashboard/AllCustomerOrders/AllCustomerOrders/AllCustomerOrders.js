@@ -1,24 +1,18 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import useAuth from '../../../../hooks/useAuth';
-import CustomerOrdersTable from '../CustomerOrdersTable/CustomerOrdersTable';
+import AllCustomerOrdersTable from '../AllCustomerOrdersTable/AllCustomerOrdersTable';
 
-const CustomerOrders = () => {
+const AllCustomerOrders = () => {
     const { user } = useAuth()
-    const [customerOrders, setCustomerOrders] = useState([])
+    const [customerAllOrders, setCustomerAllOrders] = useState([])
 
     // Get Orders
     useEffect(() => {
-        fetch('https://frozen-chamber-03076.herokuapp.com/myOrders', {
-            method: "POST",
-            headers: {
-                'content-type': "application/json"
-            },
-            body: JSON.stringify(user)
-        })
+        fetch('https://frozen-chamber-03076.herokuapp.com/allOrders')
             .then(res => res.json())
             .then(data => {
-                setCustomerOrders(data)
+                setCustomerAllOrders(data)
             })
             .catch(error => console.log(error))
     }, [])
@@ -33,16 +27,33 @@ const CustomerOrders = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.deletedCount) {
-                        const remainingOrders = customerOrders.filter(order => order._id !== id)
-                        setCustomerOrders(remainingOrders)
+                        const remainingOrders = customerAllOrders.filter(booking => booking._id !== id)
+                        setCustomerAllOrders(remainingOrders)
                     }
                 })
         }
     }
 
+    // Handle Approve Order
+    const approveOrder = id => {
+        fetch(`https://frozen-chamber-03076.herokuapp.com/order/${id}`, {
+            method: "PUT"
+        })
+            .then(res => res.json())
+            .then(data => {
+                fetch("https://frozen-chamber-03076.herokuapp.com/allOrders")
+                    .then(res => res.json())
+                    .then(data => {
+                        setCustomerAllOrders(data)
+                    })
+                    .catch(error => console.log(error))
+            })
+
+    }
+
     return (
         <div className="container py-5">
-            <h3>My Orders</h3>
+            <h3>All Orders</h3>
             {/* Order Table */}
             <div className="table-responsive">
                 <table className="table table-striped table-hover">
@@ -57,20 +68,24 @@ const CustomerOrders = () => {
                             <th scope="col">Country</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Approve</th>
                             <th scope="col">Cancel</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {customerOrders.map(singleOrder => <CustomerOrdersTable
-                            key={singleOrder._id}
-                            singleOrder={singleOrder}
-                            handleCancelOrder={handleCancelOrder}
-                        ></CustomerOrdersTable>)}
+                        {
+                            customerAllOrders.map(singleOrder => <AllCustomerOrdersTable
+                                key={singleOrder._id}
+                                singleOrder={singleOrder}
+                                handleCancelOrder={handleCancelOrder}
+                                approveOrder
+                                ={approveOrder}></AllCustomerOrdersTable>)
+                        }
                     </tbody>
                 </table>
             </div>
-        </div >
+        </div>
     );
 };
 
-export default CustomerOrders;
+export default AllCustomerOrders;

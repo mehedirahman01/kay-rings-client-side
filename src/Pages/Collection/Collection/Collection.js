@@ -3,10 +3,11 @@ import { useState } from 'react';
 import SingleRing from '../SingleRing/SingleRing';
 
 const Collection = () => {
+    // Set State
     const [ringCollection, setRingCollection] = useState([])
     const [dataLoaded, setDataLoaded] = useState(false)
 
-
+    // Load Data
     useEffect(() => {
         fetch("https://frozen-chamber-03076.herokuapp.com/ringCollection")
             .then(res => res.json())

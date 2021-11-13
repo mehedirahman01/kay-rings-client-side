@@ -10,7 +10,6 @@ const Features = () => {
             <h1>Why KAY RINGS?</h1>
             <IconContext.Provider value={{ size: "2.5em" }}>
                 <div className="container my-5">
-                    <h1 className="my-4 d-block d-md-none">OUR FEATURES</h1>
                     <div className="row">
                         <div className="col-lg-3 col-12">
                             <div className="d-flex">

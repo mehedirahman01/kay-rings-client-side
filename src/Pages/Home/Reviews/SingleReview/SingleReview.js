@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
-
+import { IconContext } from 'react-icons';
 
 const SingleReview = (props) => {
     const { singleReview } = props
@@ -13,16 +13,19 @@ const SingleReview = (props) => {
     }
 
     return (
+        // Carousel Item
         <div className="carousel-item" data-bs-interval="5000">
             <div>
                 <div className="container py-5">
-                    <div className="d-flex justify-content-center" style={{ height: "250px" }}>
-                        <div className="bg-light bg-opacity-75 w-50 overflow-auto py-3">
-                            <h1>{singleReview?.name}</h1>
-                            <p>{singleReview?.reviewText}</p>
-                            {showRating(singleReview?.rating)}
+                    <IconContext.Provider value={{ size: "1.5em", color: "orange" }}>
+                        <div className="d-flex justify-content-center" style={{ height: "250px" }}>
+                            <div className="bg-light bg-opacity-75 w-50 overflow-auto py-3">
+                                <h1>{singleReview?.name}</h1>
+                                <p>{singleReview?.reviewText}</p>
+                                {showRating(singleReview?.rating)}
+                            </div>
                         </div>
-                    </div>
+                    </IconContext.Provider>
                 </div>
             </div>
         </div>

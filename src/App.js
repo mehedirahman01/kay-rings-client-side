@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './Pages/Home/Home/Home';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
 import Register from './Pages/Login/Register/Register';
@@ -10,7 +10,7 @@ import Collection from './Pages/Collection/Collection/Collection';
 import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 import PlaceOrder from './Pages/PlaceOrder/PlaceOrder';
 import Dashboard from './Pages/Dashboard/Dashboard';
-import Payment from './Pages/Dashboard/Payment/Payment';
+
 
 function App() {
   return (

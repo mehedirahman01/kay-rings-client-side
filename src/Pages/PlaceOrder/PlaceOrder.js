@@ -11,6 +11,7 @@ const PlaceOrder = () => {
     const [singleRing, setSingleRing] = useState({})
     const history = useHistory()
 
+    // Load Ring Data
     useEffect(() => {
         fetch(`https://frozen-chamber-03076.herokuapp.com/placeOrder/${_id}`)
             .then(res => res.json())
@@ -18,7 +19,7 @@ const PlaceOrder = () => {
             .catch(error => console.log(error))
     }, [])
 
-
+    // Handle Order Form
     const onSubmit = formData => {
         if (!formData.name) {
             formData.name = user.displayName
@@ -27,7 +28,7 @@ const PlaceOrder = () => {
             formData.email = user.email
         }
         formData.ringId = _id
-        formData.status = "pending"
+        formData.status = "Pending"
 
         fetch("https://frozen-chamber-03076.herokuapp.com/placeOrder", {
             method: "POST",
@@ -48,10 +49,9 @@ const PlaceOrder = () => {
     return (
         <div className="container my-5">
             <h1>Place Your Order</h1>
-
-            <div className="row">
+            <div className="row d-flex">
+                {/* Contact Information */}
                 <div className="col-lg-6 col-12 border rounded p-0">
-
                     <h6 className="pt-4">Contact Information</h6>
                     {/* User Details Form */}
                     {user ? <form className="p-4" onSubmit={handleSubmit(onSubmit)}>
@@ -95,7 +95,7 @@ const PlaceOrder = () => {
 
                 </div>
 
-                {/* Package Details */}
+                {/* Product Details */}
                 <div className="col-lg-6 col-12 border rounded p-0 order-lg-last order-first mb-lg-0 pb-3">
                     {singleRing ? <div>
                         <ul class="list-group list-group-flush">
@@ -105,8 +105,16 @@ const PlaceOrder = () => {
                                         <img src={singleRing?.img} alt="" width="70%" />
                                     </div>
                                     <div className="d-flex justify-content-between align-items-center col-8">
-                                        <h6>{singleRing.name}</h6>
-                                        <h6>{singleRing.price}$</h6>
+                                        <div>
+                                            <h6>{singleRing.name}</h6>
+                                            <div className="px-5">
+                                                <small>{singleRing.short_description}</small>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h6>{singleRing.price}$</h6>
+                                        </div>
+
                                     </div>
                                 </div>
                             </li>

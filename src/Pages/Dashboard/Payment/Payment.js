@@ -1,5 +1,6 @@
 import React from 'react';
 import dashboard from '../../../images/dashboard.jpg'
+// Background Style
 const paymentStyle = {
     backgroundImage: `url(${dashboard})`,
     height: "100vh",

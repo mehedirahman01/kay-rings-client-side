@@ -7,6 +7,7 @@ const SingleRing = (props) => {
     return (
         <div>
             <div className="col">
+                {/* Product Card */}
                 <div className="card h-100">
                     <img src={singleRing?.img} className="card-img-top" alt="..."
                     />

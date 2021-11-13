@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 // Import Icon
 import { IconContext } from 'react-icons';
-import { RiAccountCircleFill } from 'react-icons/ri'
+import { RiAccountCircleFill, RiUserAddFill, RiUserSharedFill, RiHome4Fill, RiLogoutBoxFill } from 'react-icons/ri'
 // Import CSS
 import './Header.css'
 import useAuth from '../../../hooks/useAuth';
@@ -43,8 +43,8 @@ const Header = () => {
                                         <li><NavLink className="nav-link" to="/" onClick={logout} ><h6 className="text-black m-0">Logout</h6></NavLink></li>
 
                                     </ul> : <ul className="dropdown-menu p-0">
-                                        <li><NavLink className="nav-link text-black" to="/login">Login</NavLink></li>
-                                        <li><NavLink className="nav-link text-black" to="/register">Register</NavLink></li>
+                                        <li><NavLink className="nav-link text-black" to="/login"><RiUserSharedFill /> Login</NavLink></li>
+                                        <li><NavLink className="nav-link text-black" to="/register"><RiUserAddFill /> Register</NavLink></li>
                                     </ul>
                                 }
                             </div>
